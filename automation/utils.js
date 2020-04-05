@@ -19,7 +19,7 @@ const isSameDate = (dateA, dateB) => {
  */
 const formatDate = (date) => {
   const normalize = (val) => String(val).padStart(2, '0')
-  return `${normalize(date.getDate())}.${normalize(date.getUTCMonth() + 1)}.${date.getFullYear()}`
+  return `${normalize(date.getDate())}.${normalize(date.getMonth() + 1)}.${date.getFullYear()}`
 }
 
 /**

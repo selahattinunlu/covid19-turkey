@@ -20,7 +20,7 @@ const isThereNewData = () => new Promise((resolve) => {
     resolve(
       !utils.isSameDate(
         new Date(utils.unformatDate(utils.getLastData().date)),
-        new Date(res.headers.date)
+        new Date(`${res.headers.date}+03:00`)
       )
     )
   })
