@@ -5,6 +5,7 @@ const { exec } = require('child_process')
 const utils = require('./utils')
 
 const DATA_URL = 'https://covid19.saglik.gov.tr/'
+const DATA_FILE_PATH = '../data.json'
 const FILE_NAME_FOR_UPLOAD = './image.png'
 
 const isThereNewData = () => new Promise((resolve) => {
@@ -43,19 +44,31 @@ const getNewData = (page) => new Promise(async resolve => {
 })
 
 const appendData = async (newData) => {
-  const data = require('../data.json')
+  const data = require(DATA_FILE_PATH)
 
   data.data.push({
     date: utils.formatDate(new Date()),
     ...newData
   })
 
-  fs.writeFileSync('../data.json', JSON.stringify(data, null, 2), { flag: 'w' })
+  fs.writeFileSync(DATA_FILE_PATH, JSON.stringify(data, null, 2), { flag: 'w' })
 }
 
 const build = () => new Promise(resolve => {
   const buildProcess = exec('npm run build', { cwd: '../' })
   buildProcess.on('exit', () => resolve(true))
+})
+
+const takeScreenshot = () => new Promise(resolve => {
+
+})
+
+const postToFacebook = () => new Promise(resolve => {
+
+})
+
+const deploy = () => new Promise(resolve => {
+
 })
 
 module.exports = async (browser, page) => {
@@ -65,10 +78,11 @@ module.exports = async (browser, page) => {
   }
 
   const newData = await getNewData(page)
-
   await appendData(newData)
-
   await build()
+  await takeScreenshot()
+  await postToFacebook()
+  await deploy()
 
   return
 
