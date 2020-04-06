@@ -34,7 +34,11 @@ const RUN_FOR_LOGIN = process.argv[2] === '--login';
 (async () => {
   const browser = await puppeteer.launch({
     headless: false,
-    userDataDir: '.data'
+    userDataDir: '.data',
+    defaultViewport: {
+      width: 1900,
+      height: 800
+    }
   })
 
   const page = (await browser.pages())[0]

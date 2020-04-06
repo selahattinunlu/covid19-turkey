@@ -1,72 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Covid 19 - Turkey</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid 19 - Turkey</title>
 
-		<style>
-			canvas {
-				-moz-user-select: none;
-				-webkit-user-select: none;
-				-ms-user-select: none;
-			}
+    <style>
+      canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
 
-			.wrapper {
-				display: flex;
-				flex-direction: column;
-				width: 1030px;
-				margin: 0 auto;
-			}
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 1030px;
+        margin: 0 auto;
+      }
 
-			.canvas-container {
-				margin-bottom: 3rem;
-			}
+      .canvas-container {
+        margin-bottom: 3rem;
+      }
 
-			@media only screen and (max-width: 600px) {
-				body {
-					overflow: hidden;
-				}
-				.wrapper {
-					width: 100%;
-				}
+      @media only screen and (max-width: 600px) {
+        body {
+          overflow: hidden;
+        }
+        .wrapper {
+          width: 100%;
+        }
 
-				.canvas-container {
-					width: 1000px;
-					margin-bottom: 5rem;
-					overflow: auto;
-				}
-			}
+        .canvas-container {
+          width: 1000px;
+          margin-bottom: 5rem;
+          overflow: auto;
+        }
+      }
+    </style>
 
-		</style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-58019387-11"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-58019387-11"></script>
-		<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+      gtag("config", "UA-58019387-11");
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="canvas-container">
+        <canvas id="test-case-statistics"></canvas>
+      </div>
 
-		gtag('config', 'UA-58019387-11');
-		</script>
+      <div class="canvas-container">
+        <canvas id="case-death-statistics"></canvas>
+      </div>
 
-	</head>
-	<body>
-		<div class="wrapper">
-			<div class="canvas-container">
-                <canvas id="test-case-statistics"></canvas>
-			</div>
-			
-			<div class="canvas-container">
-                <canvas id="case-death-statistics"></canvas>
-            </div>
+      <div id="test-case-rate-container" class="canvas-container">
+        <canvas id="testCaseRate"></canvas>
+      </div>
+    </div>
 
-            <div class="canvas-container">
-                <canvas id="testCaseRate"></canvas>
-            </div>
-        </div>
-	
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-		<script src="dist/app.js"></script>
-	</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="dist/app.js"></script>
+  </body>
 </html>

@@ -31,9 +31,12 @@ const unformatDate = date => {
   return `${splitted[2]}-${splitted[1]}-${splitted[0]}`
 }
 
+const calculatePercentage = (numberA, numberB) => Math.round((numberA / numberB) * 100)
+
 module.exports = {
   getLastData,
   unformatDate,
   formatDate,
-  isSameDate
+  isSameDate,
+  calculatePercentage
 }
