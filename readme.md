@@ -5,7 +5,7 @@ So I thought we could get a better idea of the situation. So I created this simp
 
 And then, I automated the things I do every day.
 
-The script in automate directory does:
+The script in "automation" directory does:
 
 - Check if there is a new data in website of ministry of health
 - Pull the data and put it into data.json file
