@@ -126,4 +126,8 @@ module.exports = async (browser, page) => {
   // await takeScreenshot(page)
   // await postToFacebook(page)
   await deploy()
+
+  console.log('deploy tamamlandı')
+
+  process.kill(process.pid)
 }
