@@ -1,4 +1,4 @@
-# Introduction
+# Covid19 in Turkey
 
 I wanted to visualize the data shared by the ministry of health.
 So I thought we could get a better idea of the situation. So I created this simple website.
