@@ -54,5 +54,5 @@ const killProcess = () => {
 
   logger.info('Update was completed.')
 
-  killProcess()
+  return killProcess()
 })()

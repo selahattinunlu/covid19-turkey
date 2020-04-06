@@ -6,7 +6,7 @@ const path = require('path')
 const logger = require('./logger')
 const utils = require('./utils')
 
-const RUN_FOR_TEST = process.argv[2] === '--test'
+const RUN_FOR_PUBLISHING = process.argv[2] === '--publish'
 const DATA_URL = 'https://covid19.saglik.gov.tr/'
 const DATA_FILE_RELATIVE_PATH = '../data.json'
 const FILE_RELATIVE_PATH_FOR_UPLOAD = './image.png'
@@ -124,13 +124,19 @@ module.exports = async (browser, page) => {
 
   logger.info('Screenshot was saved...')
 
-  await postToFacebook(page)
+  if (RUN_FOR_PUBLISHING) {
+    await postToFacebook(page)
+  }
 
   logger.info('Post was sent to Facebook...')
 
-  await deploy()
+  if (RUN_FOR_PUBLISHING) {
+    await deploy()
+  }
 
   logger.info('Application was deployed...')
+
+  await browser.close()
 }
 
 module.exports.pullChanges = pullChanges
