@@ -3,6 +3,7 @@ const fs = require('fs')
 const { exec } = require('child_process')
 const path = require('path')
 
+const logger = require('./logger')
 const utils = require('./utils')
 
 const DATA_URL = 'https://covid19.saglik.gov.tr/'
@@ -94,13 +95,8 @@ const postToFacebook = (page) => new Promise(async resolve => {
   const fileInputEl = await page.$('input[type=file]')
   await fileInputEl.uploadFile(FILE_RELATIVE_PATH_FOR_UPLOAD)
 
-  // click submit
-  // await page.click('div[aria-label="Create a post"] button[type=submit]');
-  // can’t find reliable way to detect that it posted successfully,
-  // but if we close too soon it won’t finish the post request
-  // await new Promise(res => setTimeout(res, 2000))}
-  // await browser.close();
-
+  await page.click('div[aria-label="Create a post"] button[type=submit]')
+  await page.waitFor(10000)
   resolve(true)
 })
 
@@ -111,23 +107,30 @@ const deploy = () => new Promise(async resolve => {
 })
 
 module.exports = async (browser, page) => {
-  await pullChanges()
-
-  console.log('pull changes completed')
-
-  if (!(await isThereNewData())) {
-    console.log('yeni data yok')
-    return
-  }
-
   const newData = await getNewData(page)
-  // await appendData(newData)
+
+  logger.info('New data was fetched...')
+
+  await appendData(newData)
+
+  logger.info('Data was appended into data.json...')
+
   await build()
-  // await takeScreenshot(page)
-  // await postToFacebook(page)
+
+  logger.info('Build completed...')
+
+  await takeScreenshot(page)
+
+  logger.info('Screenshot was saved...')
+
+  await postToFacebook(page)
+
+  logger.info('Post was sent to Facebook...')
+
   await deploy()
 
-  console.log('deploy tamamlandı')
-
-  process.kill(process.pid)
+  logger.info('Application was deployed...')
 }
+
+module.exports.pullChanges = pullChanges
+module.exports.isThereNewData = isThereNewData
