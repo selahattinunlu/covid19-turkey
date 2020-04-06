@@ -6,6 +6,7 @@ const path = require('path')
 const logger = require('./logger')
 const utils = require('./utils')
 
+const RUN_FOR_TEST = process.argv[2] === '--test'
 const DATA_URL = 'https://covid19.saglik.gov.tr/'
 const DATA_FILE_RELATIVE_PATH = '../data.json'
 const FILE_RELATIVE_PATH_FOR_UPLOAD = './image.png'

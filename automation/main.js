@@ -21,13 +21,21 @@ const launchBrowser = async () => {
   return [browser, page]
 }
 
+const killProcess = () => {
+  logger.info(`Memory usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mb`)
+
+  logger.on('finish', function (info) {
+    process.kill(process.pid)
+  })
+}
+
 (async () => {
   logger.info('Automation was started...')
 
   if (RUN_FOR_LOGIN) {
     const [browser, page] = await launchBrowser()
     await login(browser, page)
-    process.kill(process.pid)
+    return killProcess()
   }
 
   await update.pullChanges()
@@ -36,7 +44,7 @@ const launchBrowser = async () => {
 
   if (!(await update.isThereNewData())) {
     logger.info('There is no any new data')
-    process.kill(process.pid)
+    return killProcess()
   }
 
   logger.info('Updating...')
@@ -45,5 +53,6 @@ const launchBrowser = async () => {
   await update(browser, page)
 
   logger.info('Update was completed.')
-  process.kill(process.pid)
+
+  killProcess()
 })()
