@@ -32,8 +32,9 @@ const killProcess = () => {
 (async () => {
   logger.info('Automation was started...')
 
+  const [browser, page] = await launchBrowser()
+
   if (RUN_FOR_LOGIN) {
-    const [browser, page] = await launchBrowser()
     await login(browser, page)
     return killProcess()
   }
@@ -42,14 +43,14 @@ const killProcess = () => {
 
   logger.info('Changes are pulled...')
 
-  if (!(await update.isThereNewData())) {
+  if (!(await update.isThereNewData(page))) {
     logger.info('There is no any new data')
+    await browser.close()
     return killProcess()
   }
 
   logger.info('Updating...')
 
-  const [browser, page] = await launchBrowser()
   await update(browser, page)
 
   logger.info('Update was completed.')

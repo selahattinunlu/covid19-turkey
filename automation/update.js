@@ -17,23 +17,21 @@ const pullChanges = () => new Promise(resolve => {
   process.on('exit', () => resolve(true))
 })
 
-const isThereNewData = () => new Promise((resolve) => {
-  const req = https.get(DATA_URL, { method: 'HEAD' })
+const isThereNewData = (page) => new Promise(async (resolve) => {
+  await page.goto(DATA_URL)
 
-  req.on('response', res => {
-    if (res.statusCode !== 200) {
-      // TODO: log that we can't response from the site
-    }
+  const elements = await page.$$('.takvim p')
+  const day = await elements[0].evaluate(node => node.innerText)
+  const month = await elements[1].evaluate(node => node.innerText)
+  const year = await elements[2].evaluate(node => node.innerText)
+  const date = `${year}-${utils.getMonthFromString(month)}-${day}`
 
-    req.abort()
-
-    resolve(
-      !utils.isSameDate(
-        new Date(utils.unformatDate(utils.getLastData().date)),
-        new Date(`${res.headers.date}+03:00`)
-      )
+  resolve(
+    !utils.isSameDate(
+      new Date(utils.unformatDate(utils.getLastData().date)),
+      new Date(date)
     )
-  })
+  )
 })
 
 const getNewData = (page) => new Promise(async resolve => {

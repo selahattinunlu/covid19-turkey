@@ -33,10 +33,32 @@ const unformatDate = date => {
 
 const calculatePercentage = (numberA, numberB) => Math.round((numberA / numberB) * 100)
 
+const getMonthFromString = (month) => {
+  const MONTHS = [
+    'OCAK',
+    'ŞUBAT',
+    'MART',
+    'NİSAN',
+    'MAYIS',
+    'HAZİRAN',
+    'TEMMUZ',
+    'AĞUSTOS',
+    'EYLÜL',
+    'EKİM',
+    'KASIM',
+    'ARALIK'
+  ]
+
+  const index = MONTHS.findIndex(m => m === month)
+
+  return String(index + 1).padStart(2, 0)
+}
+
 module.exports = {
   getLastData,
   unformatDate,
   formatDate,
   isSameDate,
-  calculatePercentage
+  calculatePercentage,
+  getMonthFromString
 }
