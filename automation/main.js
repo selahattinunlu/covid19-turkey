@@ -1,59 +1,26 @@
-const puppeteer = require('puppeteer')
-
 const logger = require('./logger')
 const login = require('./login')
 const update = require('./update')
+const checkUpdates = require('./checkUpdates')
 
-const RUN_FOR_LOGIN = process.argv[2] === '--login'
+const RUN_FOR_LOGIN = process.argv[2] === '--login';
 
-const launchBrowser = async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-    userDataDir: '.data',
-    defaultViewport: {
-      width: 1900,
-      height: 800
-    }
-  })
+(async () => {
+  if (RUN_FOR_LOGIN) {
+    return login()
+  }
 
-  const page = (await browser.pages())[0]
+  logger.info('Automation was started...')
 
-  return [browser, page]
-}
+  await checkUpdates()
+  await update()
+})()
 
-const killProcess = () => {
+// Gracefully close
+process.on('exit', () => {
   logger.info(`Memory usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Mb`)
 
   logger.on('finish', function (info) {
-    process.kill(process.pid)
+    //
   })
-}
-
-(async () => {
-  logger.info('Automation was started...')
-
-  const [browser, page] = await launchBrowser()
-
-  if (RUN_FOR_LOGIN) {
-    await login(browser, page)
-    return killProcess()
-  }
-
-  await update.pullChanges()
-
-  logger.info('Changes are pulled...')
-
-  if (!(await update.isThereNewData(page))) {
-    logger.info('There is no any new data')
-    await browser.close()
-    return killProcess()
-  }
-
-  logger.info('Updating...')
-
-  await update(browser, page)
-
-  logger.info('Update was completed.')
-
-  return killProcess()
-})()
+})

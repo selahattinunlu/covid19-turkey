@@ -2,6 +2,7 @@ const fs = require('fs')
 const { exec } = require('child_process')
 const path = require('path')
 
+const browserLauncher = require('./browserLauncher')
 const logger = require('./logger')
 const utils = require('./utils')
 
@@ -24,6 +25,8 @@ const isThereNewData = (page) => new Promise(async (resolve) => {
   const month = await elements[1].evaluate(node => node.innerText)
   const year = await elements[2].evaluate(node => node.innerText)
   const date = `${year}-${utils.getMonthFromString(month)}-${day}`
+
+  logger.info(`Last updated date: ${utils.formatDate(new Date(date))}`)
 
   resolve(
     !utils.isSameDate(
@@ -104,8 +107,12 @@ const deploy = () => new Promise(async resolve => {
   process.on('exit', () => resolve(true))
 })
 
-module.exports = async (browser, page) => {
-  const newData = await getNewData(page)
+module.exports = async () => {
+  const connection = await browserLauncher.launch({ headless: false })
+
+  logger.info('Updating...')
+
+  const newData = await getNewData(connection.page)
 
   logger.info('New data was fetched...')
 
@@ -117,23 +124,22 @@ module.exports = async (browser, page) => {
 
   logger.info('Build completed...')
 
-  await takeScreenshot(page)
+  await takeScreenshot(connection.page)
 
   logger.info('Screenshot was saved...')
 
   if (RUN_FOR_PUBLISHING) {
-    await postToFacebook(page)
-  }
-
-  logger.info('Post was sent to Facebook...')
-
-  if (RUN_FOR_PUBLISHING) {
+    await postToFacebook(connection.page)
+    logger.info('Post was sent to Facebook...')
     await deploy()
+    logger.info('Application was deployed...')
   }
 
-  logger.info('Application was deployed...')
+  await connection.browser.close()
 
-  await browser.close()
+  logger.info('Update was completed.')
+
+  process.exit()
 }
 
 module.exports.pullChanges = pullChanges
