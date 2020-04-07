@@ -138,8 +138,6 @@ module.exports = async () => {
   await connection.browser.close()
 
   logger.info('Update was completed.')
-
-  process.exit()
 }
 
 module.exports.pullChanges = pullChanges
