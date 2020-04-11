@@ -95,9 +95,10 @@ const postToFacebook = (page) => new Promise(async resolve => {
 
   const fileInputEl = await page.$('input[type=file]')
   await fileInputEl.uploadFile(FILE_RELATIVE_PATH_FOR_UPLOAD)
+  await page.waitFor(15000)
 
   await page.click('div[aria-label="Create a post"] button[type=submit]')
-  await page.waitFor(10000)
+  await page.waitFor(15000)
   resolve(true)
 })
 
