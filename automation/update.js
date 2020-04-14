@@ -71,6 +71,7 @@ const build = () => new Promise(resolve => {
 const takeScreenshot = (page) => new Promise(async resolve => {
   await page.goto(`file://${ROOT_PATH}/index.html`)
   const el = await page.$('#test-case-rate-container')
+  await page.waitFor(5000)
   await el.screenshot({
     path: FILE_RELATIVE_PATH_FOR_UPLOAD
   })
