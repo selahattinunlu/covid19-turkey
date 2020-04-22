@@ -69,7 +69,7 @@ const build = () => new Promise(resolve => {
 })
 
 const takeScreenshot = (page) => new Promise(async resolve => {
-  fs.unlinkSync(FILE_RELATIVE_PATH_FOR_UPLOAD)
+  // fs.unlinkSync(FILE_RELATIVE_PATH_FOR_UPLOAD)
   await page.goto(`file://${ROOT_PATH}/index.html`)
   const el = await page.$('#test-case-rate-container')
   await page.waitFor(5000)
@@ -105,7 +105,7 @@ const postToFacebook = (page) => new Promise(async resolve => {
 })
 
 const deploy = () => new Promise(async resolve => {
-  const process = exec('git add . && git commit -m "update" && git push', { cwd: ROOT_PATH })
+  const process = exec('git add . && git commit -m "update data.json" && git push', { cwd: ROOT_PATH })
   process.stdout.on('data', d => console.log(d))
   process.on('exit', () => resolve(true))
 })
