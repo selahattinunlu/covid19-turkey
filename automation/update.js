@@ -65,7 +65,11 @@ const appendData = async (newData) => {
 
 const build = () => new Promise(resolve => {
   const buildProcess = exec('npm run build', { cwd: '../' })
+  buildProcess.on('data', data => logger.info(data))
   buildProcess.on('exit', () => resolve(true))
+  buildProcess.on('error', (err) => {
+    logger.info(err.message)
+  })
 })
 
 const takeScreenshot = (page) => new Promise(async resolve => {
