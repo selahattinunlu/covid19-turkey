@@ -12,6 +12,12 @@ const DATA_FILE_RELATIVE_PATH = '../data.json'
 const FILE_RELATIVE_PATH_FOR_UPLOAD = './image.png'
 const ROOT_PATH = path.resolve('..')
 
+//
+
+const evaluateInnerText = node => node.evaluateInnerText
+
+//
+
 const pullChanges = () => new Promise(resolve => {
   const process = exec('git pull', { cwd: ROOT_PATH })
   process.on('exit', () => resolve(true))
@@ -21,9 +27,9 @@ const isThereNewData = (page) => new Promise(async (resolve) => {
   await page.goto(DATA_URL)
 
   const elements = await page.$$('.takvim p')
-  const day = await elements[0].evaluate(node => node.innerText)
-  const month = await elements[1].evaluate(node => node.innerText)
-  const year = await elements[2].evaluate(node => node.innerText)
+  const day = await elements[0].evaluate(evaluateInnerText)
+  const month = await elements[1].evaluate(evaluateInnerText)
+  const year = await elements[2].evaluate(evaluateInnerText)
   const date = `${year}-${utils.getMonthFromString(month)}-${day}`
 
   logger.info(`Last updated date: ${utils.formatDate(new Date(date))}`)
@@ -65,7 +71,7 @@ const appendData = async (newData) => {
 
 const build = () => new Promise(resolve => {
   const buildProcess = exec('npm run build', { cwd: '../' })
-  buildProcess.on('data', data => logger.info(data))
+  buildProcess.stdout.on('data', data => logger.info(data))
   buildProcess.on('exit', () => resolve(true))
   buildProcess.on('error', (err) => {
     logger.info(err.message)
