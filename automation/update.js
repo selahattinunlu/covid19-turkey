@@ -14,7 +14,7 @@ const ROOT_PATH = path.resolve('..')
 
 //
 
-const evaluateInnerText = node => node.evaluateInnerText
+const evaluateInnerText = node => node.innerText
 
 //
 
@@ -27,6 +27,7 @@ const isThereNewData = (page) => new Promise(async (resolve) => {
   await page.goto(DATA_URL)
 
   const elements = await page.$$('.takvim p')
+
   const day = await elements[0].evaluate(evaluateInnerText)
   const month = await elements[1].evaluate(evaluateInnerText)
   const year = await elements[2].evaluate(evaluateInnerText)
@@ -70,9 +71,13 @@ const appendData = async (newData) => {
 }
 
 const build = () => new Promise(resolve => {
+  logger.info('Build process is working now')
   const buildProcess = exec('npm run build', { cwd: '../' })
   buildProcess.stdout.on('data', data => logger.info(data))
-  buildProcess.on('exit', () => resolve(true))
+  buildProcess.on('exit', () => {
+    logger.info('build process was completed')
+    resolve(true)
+  })
   buildProcess.on('error', (err) => {
     logger.info(err.message)
   })
