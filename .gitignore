@@ -5,4 +5,3 @@
 node_modules
 automation/image.png
 automation/*.log
-automation/runner
