@@ -511,18 +511,74 @@
       "recover": 1594
     },
     {
-      "date": "30.05.2020",
+      "date": "31.05.2020",
       "test": 39230,
       "case": 983,
       "death": 26,
       "recover": 1021
     },
     {
-      "date": "31.05.2020",
-      "test": 35600,
-      "case": 839,
-      "death": 25,
-      "recover": 989
+      "date": "01.06.2020",
+      "test": 31525,
+      "case": 827,
+      "death": 23,
+      "recover": 974
+    },
+    {
+      "date": "02.06.2020",
+      "test": 32325,
+      "case": 786,
+      "death": 22,
+      "recover": 974
+    },
+    {
+      "date": "03.06.2020",
+      "test": 52305,
+      "case": 867,
+      "death": 24,
+      "recover": 931
+    },
+    {
+      "date": "04.06.2020",
+      "test": 54234,
+      "case": 988,
+      "death": 21,
+      "recover": 926
+    },
+    {
+      "date": "05.06.2020",
+      "test": 57829,
+      "case": 930,
+      "death": 18,
+      "recover": 1622
+    },
+    {
+      "date": "06.06.2020",
+      "test": 35846,
+      "case": 878,
+      "death": 21,
+      "recover": 1922
+    },
+    {
+      "date": "07.06.2020",
+      "test": 35335,
+      "case": 914,
+      "death": 23,
+      "recover": 2647
+    },
+    {
+      "date": "08.06.2020",
+      "test": 39361,
+      "case": 989,
+      "death": 19,
+      "recover": 3411
+    },
+    {
+      "date": "09.06.2020",
+      "test": 37225,
+      "case": 993,
+      "death": 18,
+      "recover": 3218
     }
   ]
 }
