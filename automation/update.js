@@ -142,16 +142,16 @@ module.exports = async () => {
 
   logger.info('Build completed...')
 
-  await takeScreenshot(connection.page)
+  // await takeScreenshot(connection.page)
 
-  logger.info('Screenshot was saved...')
+  // logger.info('Screenshot was saved...')
 
-  if (RUN_FOR_PUBLISHING) {
-    await postToFacebook(connection.page)
-    logger.info('Post was sent to Facebook...')
-    await deploy()
-    logger.info('Application was deployed...')
-  }
+  // if (RUN_FOR_PUBLISHING) {
+  //   await postToFacebook(connection.page)
+  //   logger.info('Post was sent to Facebook...')
+  //   await deploy()
+  //   logger.info('Application was deployed...')
+  // }
 
   await connection.browser.close()
 
