@@ -1,5 +1,7 @@
 # Covid19 in Turkey
 
+![Update Data](https://github.com/selahattinunlu/covid19-turkey/workflows/Update%20Data/badge.svg?branch=master)
+
 I wanted to visualize the data shared by the ministry of health.
 So I thought we could get a better idea of the situation. So I created this simple website.
 
