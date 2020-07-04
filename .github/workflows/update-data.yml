@@ -5,7 +5,7 @@ name: Update Data
 
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   update_data:
@@ -17,6 +17,7 @@ jobs:
         node-version: [12.x]
 
     steps:
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -24,3 +25,6 @@ jobs:
     - run: npm install
     - run: ls
     - run: pwd
+    - uses: mikeal/publish-to-github-action@master
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
