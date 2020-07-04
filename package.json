@@ -6,7 +6,7 @@
   "scripts": {
     "build": "parcel build app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sync": "node ./automation/main.js"
+    "sync": "cd ./automation && node main.js"
   },
   "keywords": [],
   "author": "",
