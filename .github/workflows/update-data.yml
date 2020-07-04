@@ -25,6 +25,7 @@ jobs:
     - run: npm install
     - run: ls
     - run: pwd
+    - run: npm run sync
     - uses: mikeal/publish-to-github-action@master
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
