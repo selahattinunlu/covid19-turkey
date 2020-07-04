@@ -3,9 +3,9 @@ const logger = require('./logger')
 const update = require('./update')
 
 module.exports = async () => {
-  await update.pullChanges()
+  // await update.pullChanges()
 
-  logger.info('Changes are pulled...')
+  // logger.info('Changes are pulled...')
 
   const connection = await browserLauncher.launch()
 

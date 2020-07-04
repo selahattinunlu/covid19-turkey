@@ -126,7 +126,7 @@ const deploy = () => new Promise(async resolve => {
 })
 
 module.exports = async () => {
-  const connection = await browserLauncher.launch({ headless: false })
+  const connection = await browserLauncher.launch({ headless: true })
 
   logger.info('Updating...')
 
@@ -138,9 +138,9 @@ module.exports = async () => {
 
   logger.info('Data was appended into data.json...')
 
-  await build()
+  // await build()
 
-  logger.info('Build completed...')
+  // logger.info('Build completed...')
 
   // await takeScreenshot(connection.page)
 
